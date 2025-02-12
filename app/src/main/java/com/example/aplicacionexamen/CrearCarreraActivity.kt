@@ -17,14 +17,14 @@ class CrearCarreraActivity : AppCompatActivity() {
         val detalleEditText = findViewById<EditText>(R.id.crearCarrera)
         val ubicacionEditText = findViewById<EditText>(R.id.UbicacionCarrera)
         val guardarCarreraButton = findViewById<Button>(R.id.GuardarCarreraBt)
-        val clienteId = intent.getIntExtra("universidadId", 0)  // Asumiendo que el clienteId es pasado a esta actividad
+        val universidadId = intent.getIntExtra("universidadId", 0)  // Asumiendo que el clienteId es pasado a esta actividad
 
         guardarCarreraButton.setOnClickListener {
             val detalle = detalleEditText.text.toString().trim()
             val ubicacion = ubicacionEditText.text.toString().trim()
 
             // Guardar directamente en la base de datos
-            val id = gestorSQL.addCarrera(detalle, ubicacion, clienteId)
+            val id = gestorSQL.addCarrera(detalle, ubicacion, universidadId)
             if (id > 0) {
                 setResult(RESULT_OK)  // Indica que la factura fue creada con éxito
             } else {

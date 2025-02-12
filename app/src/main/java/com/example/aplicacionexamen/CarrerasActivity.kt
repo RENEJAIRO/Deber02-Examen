@@ -66,7 +66,7 @@ class CarrerasActivity : AppCompatActivity() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         when (item.itemId) {
-            R.id.edit -> editFactura(info.position)
+            R.id.edit -> editCarrera(info.position)
             R.id.delete -> {
                 gestorSQL.deleteCarrera(gestorSQL.getCarreras()[info.position].id)
                 updateListView()
@@ -77,7 +77,7 @@ class CarrerasActivity : AppCompatActivity() {
         return true
     }
 
-    private fun editFactura(position: Int) {
+    private fun editCarrera(position: Int) {
         val carrera = gestorSQL.getCarreras()[position]
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Editar Carrera")

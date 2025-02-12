@@ -3,6 +3,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.aplicacionexamen.Universidad
+import com.example.aplicacionexamen.Carrera
 
 class GestorSQL(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
@@ -22,8 +24,8 @@ class GestorSQL(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 detalle TEXT,
                 ubicacion TEXT,
-                carreraId INTEGER,
-                FOREIGN KEY(carreraId) REFERENCES Carrera(id)
+                universidadId INTEGER,
+                FOREIGN KEY(universidadId) REFERENCES universidad(id)
             )
         """
     }
@@ -44,7 +46,10 @@ class GestorSQL(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
             put("nombre", nombre)
             put("acronimo", acronimo)
         }
-        return db.insert("Universidad", null, values)
+        //return db.insert("Universidad", null, values)
+        val result = db.insert("Universidad", null, values)
+        db.close()  // Cierra la conexión
+        return result
     }
 
     fun getUniversidades(): MutableList<Universidad> {
@@ -112,6 +117,7 @@ class GestorSQL(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         val values = ContentValues().apply {
             put("detalle", detalle)
             put("ubicacion", ubicacion)
+
         }
         return db.update("Carrera", values, "id=?", arrayOf(id.toString()))
     }
